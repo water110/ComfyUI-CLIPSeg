@@ -240,11 +240,4 @@ class CombineMasks:
         image_out_binary = numpy_to_tensor(overlay_binary)
 
         return combined_mask, image_out_heatmap, image_out_binary
-'''
-# A dictionary that contains all nodes you want to export with their names
-# NOTE: names should be globally unique
-NODE_CLASS_MAPPINGS = {
-    "CLIPSeg": CLIPSeg,
-    "CombineSegMasks": CombineMasks,
-}
-'''
+
