@@ -9,6 +9,8 @@
 
 4、原作者还提到一个因为相关依赖库版本升级问题，优化了部分代码，此代码也已更新；
 
+5、原作者requirements.txt中依赖的库都是指定固定版本，有较大兼容性问题，故修改为大于等于以上版本即可；
+
 ###其他疑难问题，可参考以下相关链接###
 
 1、ComfyUI ClipSeg插件报错- CV2错误，https://www.bilibili.com/video/BV1sb421Y7tw/?spm_id_from=333.337.search-card.all.click&vd_source=278bda11b78e5becb7b9c6efd408df5b
