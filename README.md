@@ -1,5 +1,7 @@
 #### Thanks:
 # [ComfyUI-CLIPSeg](https://github.com/biegert/ComfyUI-CLIPSeg/tree/main)
+# [所需模型文件](https://huggingface.co/CIDAS/clipseg-rd64-refined/tree/main)
+#### 因为模型文件较大，故pytorch_model.bin未上传，请到以上网址下载
 
 1、如果直接将原作者的代码下载到本地，作为comfyui自定义节点运行的话，会报错提示没有__init__.py文件，原作者的方法是需要将clipseg.py放在custom_nodes文件夹下才可运行，因为此文件中已经包含了初始化的说明，所以才可以按照作者的方法进行正常运行；
 
