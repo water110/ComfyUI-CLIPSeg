@@ -1,3 +1,5 @@
+import os
+
 from transformers import CLIPSegProcessor, CLIPSegForImageSegmentation
 
 from PIL import Image
@@ -117,19 +119,31 @@ class CLIPSeg:
         # Create a PIL image from the numpy array
         i = Image.fromarray(image_np, mode="RGB")
 
-        processor = CLIPSegProcessor.from_pretrained("CIDAS/clipseg-rd64-refined")
-        model = CLIPSegForImageSegmentation.from_pretrained("CIDAS/clipseg-rd64-refined")
-        
+
+        # 优化后代码  
+        # 获取当前文件所在的目录路径
+        current_dir = os.path.dirname(__file__)
+
+        # 构建模型路径的相对路径
+        path_to_clipseg_model = os.path.join(current_dir, '../../models/clipseg')
+
+        # 使用离线模式加载模型和分词器
+        processor = CLIPSegProcessor.from_pretrained(path_to_clipseg_model, local_files_only=True)
+        model = CLIPSegForImageSegmentation.from_pretrained(path_to_clipseg_model, local_files_only=True)
+
+       # 优化后代码  
+               
         prompt = text
         
         input_prc = processor(text=prompt, images=i, padding="max_length", return_tensors="pt")
-        
-        # Predict the segemntation mask
+         
+        # 优化后代码
         with torch.no_grad():
             outputs = model(**input_prc)
-        
-        tensor = torch.sigmoid(outputs[0]) # get the mask
-        
+        preds = outputs.logits.unsqueeze(1)
+        tensor = torch.sigmoid(preds[0][0])  # get the mask
+       # 优化后代码  
+                
         # Apply a threshold to the original tensor to cut off low values
         thresh = threshold
         tensor_thresholded = torch.where(tensor > thresh, tensor, torch.tensor(0, dtype=torch.float))
@@ -226,10 +240,11 @@ class CombineMasks:
         image_out_binary = numpy_to_tensor(overlay_binary)
 
         return combined_mask, image_out_heatmap, image_out_binary
-
+'''
 # A dictionary that contains all nodes you want to export with their names
 # NOTE: names should be globally unique
 NODE_CLASS_MAPPINGS = {
     "CLIPSeg": CLIPSeg,
     "CombineSegMasks": CombineMasks,
 }
+'''
