@@ -10,6 +10,6 @@ torchaudio>=2.0.1+cu118
 torchdiffeq>=0.2.3
 torchmetrics>=0.11.4
 torchsde>=0.2.5
-torchvision>=0.15.1+cu118
+torchvision
 transformers>=4.27.1
 
